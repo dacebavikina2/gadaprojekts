@@ -1,0 +1,9 @@
+body{
+    background-image: url('vintage-wallpaper.png');
+}
+.login-forma{
+    width: 200px;
+    height: 200px;
+    margin: 0 auto;
+    background-color: darkgray;
+}
