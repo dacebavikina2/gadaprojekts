@@ -9,7 +9,7 @@ function login() {
       if (xhr.status === 200) {
         var users = JSON.parse(xhr.responseText);
         if (username in users && users[username] == password) {
-          alert("Login successful!");
+            window.location.href = 'saraksts.html?username=' + username;
         } else {
           alert("Invalid username or password.");
         }
