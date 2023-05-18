@@ -1,0 +1,8 @@
+{
+    "headers":["Lietotājs","adrese","atsauksme"],
+    "rows":[  
+      ["Jānis","www.ss.lv","Labs pārdevējs"],
+      ["Sergejs","www.mvg.lv","Viss slikti"],
+      ["Peteris","www.facebook.com","Iesaku"]
+    ]
+  }

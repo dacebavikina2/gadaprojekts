@@ -18,39 +18,43 @@
         <p>Šeit var atrast visas atsauksmes</p>  
         <input class="form-control" id="myInput" type="text" placeholder="Search..">
         <br>
-        <table class="table table-bordered table-striped">
+        <table id="dataTable">
           <thead>
-            <tr>
-              <th>Firstname</th>
-              <th>Lastname</th>
-              <th>Email</th>
-            </tr>
+            <tr id="headerRow"></tr>
           </thead>
-          <tbody id="myTable">
-            <tr>
-              <td>John</td>
-              <td>Doe</td>
-              <td>john@example.com</td>
-            </tr>
-            <tr>
-              <td>Mary</td>
-              <td>Moe</td>
-              <td>mary@mail.com</td>
-            </tr>
-            <tr>
-              <td>July</td>
-              <td>Dooley</td>
-              <td>july@greatstuff.com</td>
-            </tr>
-            <tr>
-              <td>Anja</td>
-              <td>Ravendale</td>
-              <td>a_r@test.com</td>
-            </tr>
-          </tbody>
+          <tbody id="dataRows"></tbody>
         </table>
-        
-        <p>Note that we start the search in tbody, to prevent filtering the table headers.</p>
+      
+        <script>
+          fetch('atsauksmes.json')
+            .then(response => response.json())
+            .then(data => {
+              const table = document.getElementById('dataTable');
+              const headerRow = document.getElementById('headerRow');
+              const dataRows = document.getElementById('dataRows');
+      
+              // Generate table headers
+              data.headers.forEach(header => {
+                const th = document.createElement('th');
+                th.textContent = header;
+                headerRow.appendChild(th);
+              });
+      
+              // Generate table rows
+              data.rows.forEach(rowData => {
+                const row = document.createElement('tr');
+                rowData.forEach(cellData => {
+                  const td = document.createElement('td');
+                  td.textContent = cellData;
+                  row.appendChild(td);
+                });
+                dataRows.appendChild(row);
+              });
+            })
+            .catch(error => {
+              console.error('Error:', error);
+            });
+        </script>
       </div>
       
       <script>
