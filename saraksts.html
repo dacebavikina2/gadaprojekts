@@ -15,7 +15,85 @@
 <body>
     <div class="container">
         <h2>Facebook lietotāji</h2>
-        <p>Šeit var atrast visas atsauksmes</p>  
+        <p>Šeit var atrast visas atsauksmes</p> 
+        <button id="openModalBtn">Pievienot atsauksmi</button>
+
+        <div id="addRowModal" class="modal">
+          <div class="modal-content">
+            <span class="close">&times;</span>
+            <form id="addRowForm">
+              <label for="username">Lietotājs:</label>
+              <input type="text" id="username" name="username"><br><br>
+      
+              <label for="address">Adrese:</label>
+              <input type="text" id="address" name="address"><br><br>
+      
+              <label for="review">Atsauksme:</label>
+              <input type="text" id="review" name="review"><br><br>
+      
+              <input type="submit" value="Add Row">
+            </form>
+          </div>
+        </div>
+      
+        <script>
+          // Open the modal
+          document.getElementById('openModalBtn').addEventListener('click', function() {
+            document.getElementById('addRowModal').style.display = 'block';
+          });
+      
+          // Close the modal
+          document.getElementsByClassName('close')[0].addEventListener('click', function() {
+            document.getElementById('addRowModal').style.display = 'none';
+          });
+      
+          // Handle form submission
+          document.getElementById('addRowForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+      
+            const username = document.getElementById('username').value;
+            const address = document.getElementById('address').value;
+            const review = document.getElementById('review').value;
+      
+            const newRow = [username, address, review];
+      
+            fetch('your_data.json')
+              .then(response => response.json())
+              .then(data => {
+                data.rows.push(newRow);
+      
+                // Display the updated JSON data
+                console.log(data);
+      
+                // Send the updated JSON data to the server
+                // Replace 'your_data.json' with the actual path to your JSON file
+                fetch('atsauksmes.json', {
+                  method: 'PUT',
+                  headers: {
+                    'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify(data)
+                })
+                  .then(response => response.json())
+                  .then(updatedData => {
+                    // Display the response from the server
+                    console.log('Updated data:', updatedData);
+                  })
+                  .catch(error => {
+                    console.error('Error:', error);
+                  });
+              })
+              .catch(error => {
+                console.error('Error:', error);
+              });
+      
+            // Reset the form fields
+            document.getElementById('addRowForm').reset();
+      
+            // Close the modal
+            document.getElementById('addRowModal').style.display = 'none';
+          });
+        </script> 
         <input class="form-control" id="myInput" type="text" placeholder="Search..">
         <br>
         <table class="table table-bordered table-striped" id="dataTable">
