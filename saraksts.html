@@ -5,6 +5,7 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>FB Saraksts</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <meta http-equiv="Permissions-Policy" content="interest-cohort=()">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -61,12 +62,9 @@
               .then(response => response.json())
               .then(data => {
                 data.rows.push(newRow);
-      
-                // Display the updated JSON data
+
                 console.log(data);
       
-                // Send the updated JSON data to the server
-                // Replace 'your_data.json' with the actual path to your JSON file
                 fetch('atsauksmes.json', {
                   method: 'PUT',
                   headers: {
@@ -76,7 +74,7 @@
                 })
                   .then(response => response.json())
                   .then(updatedData => {
-                    // Display the response from the server
+
                     console.log('Updated data:', updatedData);
                   })
                   .catch(error => {
@@ -87,10 +85,8 @@
                 console.error('Error:', error);
               });
       
-            // Reset the form fields
             document.getElementById('addRowForm').reset();
-      
-            // Close the modal
+
             document.getElementById('addRowModal').style.display = 'none';
           });
         </script> 
